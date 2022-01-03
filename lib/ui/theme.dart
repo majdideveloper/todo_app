@@ -13,20 +13,24 @@ const Color darkHeaderClr = Color(0xFF424242);
 
 class Themes {
   static final light = ThemeData(
-    primaryColor: primaryClr,
-    backgroundColor: primaryClr,
+    scaffoldBackgroundColor:Colors.white ,
+    primaryColor: darkGreyClr,
+    backgroundColor: Colors.white,
     brightness: Brightness.light,
   );
   static final dark = ThemeData(
-    primaryColor: darkGreyClr,
+    scaffoldBackgroundColor:darkGreyClr ,
+    primaryColor: Colors.white,
     backgroundColor: darkGreyClr,
     brightness: Brightness.dark,
   );
 
-  TextStyle get headingStyle {
+  
+}
+TextStyle get headingStyle {
     return GoogleFonts.lato(
         textStyle: TextStyle(
-      color: Get.isDarkMode ? Colors.white : Colors.black,
+      color:bluishClr ,
       fontSize: 24.0,
       fontWeight: FontWeight.bold,
     ));
@@ -35,7 +39,7 @@ class Themes {
   TextStyle get subHeadingStyle {
     return GoogleFonts.lato(
       textStyle: TextStyle(
-        color: Get.isDarkMode ? Colors.white : Colors.black,
+        color: bluishClr,
         fontSize: 20.0,
         fontWeight: FontWeight.bold,
       ),
@@ -45,7 +49,7 @@ class Themes {
   TextStyle get titleStyle {
     return GoogleFonts.lato(
       textStyle: TextStyle(
-        color: Get.isDarkMode ? Colors.white : Colors.black,
+        color: bluishClr,
         fontSize: 18.0,
         fontWeight: FontWeight.bold,
       ),
@@ -55,7 +59,8 @@ class Themes {
   TextStyle get subTitleStyle {
     return GoogleFonts.lato(
       textStyle: TextStyle(
-        color: Get.isDarkMode ? Colors.white : Colors.black,
+        
+        color: Get.isDarkMode ? Colors.grey : Colors.white,
         fontSize: 16.0,
         fontWeight: FontWeight.w400,
       ),
@@ -65,7 +70,7 @@ class Themes {
   TextStyle get bodyStyle {
     return GoogleFonts.lato(
       textStyle: TextStyle(
-        color: Get.isDarkMode ? Colors.white : Colors.black,
+        color: Get.isDarkMode ? Colors.black : Colors.white,
         fontSize: 14.0,
         fontWeight: FontWeight.w400,
       ),
@@ -81,4 +86,3 @@ class Themes {
       ),
     );
   }
-}
