@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todo_app/services/notification_services.dart';
 import 'package:todo_app/services/theme_services.dart';
 import 'package:todo_app/ui/theme.dart';
 
@@ -22,8 +23,9 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {
-            print(Get.isDarkMode);
+          
             ThemeServices().switchTheme();
+            NotifyHelper().displayNotification(title: 'majdi', body: 'now',);
           },
           icon: Icon(
             Icons.brightness_4_outlined,

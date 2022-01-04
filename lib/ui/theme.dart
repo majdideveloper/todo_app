@@ -30,7 +30,7 @@ class Themes {
 TextStyle get headingStyle {
     return GoogleFonts.lato(
         textStyle: TextStyle(
-      color:bluishClr ,
+      
       fontSize: 24.0,
       fontWeight: FontWeight.bold,
     ));
@@ -39,7 +39,7 @@ TextStyle get headingStyle {
   TextStyle get subHeadingStyle {
     return GoogleFonts.lato(
       textStyle: TextStyle(
-        color: bluishClr,
+        
         fontSize: 20.0,
         fontWeight: FontWeight.bold,
       ),
@@ -49,7 +49,6 @@ TextStyle get headingStyle {
   TextStyle get titleStyle {
     return GoogleFonts.lato(
       textStyle: TextStyle(
-        color: bluishClr,
         fontSize: 18.0,
         fontWeight: FontWeight.bold,
       ),
@@ -60,7 +59,7 @@ TextStyle get headingStyle {
     return GoogleFonts.lato(
       textStyle: TextStyle(
         
-        color: Get.isDarkMode ? Colors.grey : Colors.white,
+        
         fontSize: 16.0,
         fontWeight: FontWeight.w400,
       ),
@@ -70,7 +69,7 @@ TextStyle get headingStyle {
   TextStyle get bodyStyle {
     return GoogleFonts.lato(
       textStyle: TextStyle(
-        color: Get.isDarkMode ? Colors.black : Colors.white,
+       
         fontSize: 14.0,
         fontWeight: FontWeight.w400,
       ),
@@ -80,7 +79,7 @@ TextStyle get headingStyle {
   TextStyle get bodyTwoStyle {
     return GoogleFonts.lato(
       textStyle: TextStyle(
-        color: Get.isDarkMode ? Colors.grey[200] : Colors.black,
+       
         fontSize: 16.0,
         fontWeight: FontWeight.w400,
       ),

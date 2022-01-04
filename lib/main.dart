@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todo_app/services/notification_services.dart';
 import 'package:todo_app/services/theme_services.dart';
 import 'package:todo_app/ui/pages/add_task_page.dart';
 import 'package:todo_app/ui/pages/home_page.dart';
 import 'package:todo_app/ui/pages/notification_screen.dart';
 import 'package:todo_app/ui/theme.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
+
+  WidgetsFlutterBinding.ensureInitialized;
+
+  NotifyHelper().initializeNotification();
 }
 
 class MyApp extends StatelessWidget {
@@ -21,7 +26,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: Themes.light,
       darkTheme: Themes.dark,
-      themeMode:ThemeServices().theme ,
+      themeMode: ThemeServices().theme,
       home: const HomePage(),
     );
   }
