@@ -25,7 +25,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {
           
             ThemeServices().switchTheme();
-            NotifyHelper().displayNotification(title: 'majdi', body: 'now',);
+            // NotifyHelper().displayNotification(title: 'majdi', body: 'now',);
+            // NotifyHelper().scheduledNotification();
           },
           icon: Icon(
             Icons.brightness_4_outlined,

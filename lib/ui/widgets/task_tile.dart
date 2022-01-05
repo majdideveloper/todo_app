@@ -13,7 +13,7 @@ class TaskTile extends StatelessWidget {
     return Container(
       padding: SizeConfig.orientation == Orientation.landscape
           ? EdgeInsets.all(getProportionateScreenWidth(4.0))
-          : EdgeInsets.all(getProportionateScreenWidth(20.0)),
+          : EdgeInsets.all(getProportionateScreenWidth(8.0)),
           width: SizeConfig.orientation == Orientation.landscape
             ? SizeConfig.screenWidth / 2
             : SizeConfig.screenWidth,

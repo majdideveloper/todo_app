@@ -1,5 +1,6 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -26,8 +27,9 @@ class _HomePageState extends State<HomePage> {
     // TODO: implement initState
     super.initState();
     notifyHelper = NotifyHelper();
-    notifyHelper.requestIOsPermission();
+    notifyHelper.requestIOSPermissions();
     notifyHelper.initializeNotification();
+    _taskController.getTask();
   }
 
   final TaskController _taskController = Get.put(TaskController());
@@ -59,46 +61,83 @@ class _HomePageState extends State<HomePage> {
   }
 
   _showTasks() {
-    return GestureDetector(
-      onTap:(){
-        _showBottomSheet(
-        context,
-        Task(
-          id: 1,
-          title: 'titel',
-          note: 'note',
-          isCompleted: 0,
-          date: '',
-          startTime: '',
-          endTime: '',
-          color: 0,
-        )
-      );
-      } ,
-      child: Expanded(
-        child: TaskTile(
-          Task(
-            id: 1,
-            title: 'titel',
-            note: 'note',
-            isCompleted: 0,
-            date: '',
-            startTime: '',
-            endTime: '',
-            color: 0,
-          ),
-        ),
-        // Obx(() {
+    return Expanded(
+      child: Obx(() {
+        if (_taskController.taskList.isEmpty) {
+          return _noTaskMsg();
+        } else {
+          return ListView.builder(
+              scrollDirection: SizeConfig.orientation == Orientation.portrait
+                  ? Axis.vertical
+                  : Axis.horizontal,
+              itemCount: _taskController.taskList.length,
+              itemBuilder: (context, index) {
+                var task = _taskController.taskList[index];
+                if(task.repeat == 'Daily'||task.date == DateFormat.yMd().format(_selectedDate)){
+                    var hour = task.startTime.toString().split(':')[0];
 
-        //   if(_taskController.taskList.isEmpty){
-        //     return _noTaskMsg();
-
-        //   }else{
-        //    return Container();
-        //   }
-        // }),
-      ),
+                var date = DateFormat.jm().parse(task.startTime!);
+                var myTime = DateFormat('hh:mm').format(date);
+                NotifyHelper().scheduledNotification(
+                    int.parse(myTime.toString().split(':')[0]),
+                    int.parse(myTime.toString().split(':')[1]),
+                    task);
+                return AnimationConfiguration.staggeredList(
+                  duration: Duration(milliseconds: 1500),
+                  position: index,
+                  child: SlideAnimation(
+                    horizontalOffset: 500,
+                    child: FadeInAnimation(
+                      child: GestureDetector(
+                        onTap: () {
+                          _showBottomSheet(context, task);
+                        },
+                        child: Expanded(child: TaskTile(task)),
+                      ),
+                    ),
+                  ),
+                );
+                }else{
+                 return Container();
+                }
+              
+              });
+        }
+      }),
     );
+    // return GestureDetector(
+    //   onTap:(){
+    //     _showBottomSheet(
+    //     context,
+    //     Task(
+    //       id: 1,
+    //       title: 'titel',
+    //       note: 'note',
+    //       isCompleted: 0,
+    //       date: '',
+    //       startTime: '',
+    //       endTime: '',
+    //       color: 0,
+    //     )
+    //   );
+    //   } ,
+    //   child: Expanded(
+    //     child: TaskTile(
+    //       Task(
+    //         id: 1,
+    //         title: 'titel',
+    //         note: 'note',
+    //         isCompleted: 0,
+    //         date: '',
+    //         startTime: '',
+    //         endTime: '',
+    //         color: 0,
+    //       ),
+    //     ),
+    // Obx(() {
+
+    //
+    // }),
   }
 
   _noTaskMsg() {
@@ -148,7 +187,7 @@ class _HomePageState extends State<HomePage> {
         DateTime.now(),
         initialSelectedDate: DateTime.now(),
         width: 80,
-        height: 80,
+        height: 100,
         selectedTextColor: Colors.white,
         selectionColor: primaryClr,
         onDateChange: (newDate) {
@@ -183,7 +222,7 @@ class _HomePageState extends State<HomePage> {
               label: "+ Add Task",
               onTap: () async {
                 await Get.to(AddTaskPage());
-                _taskController.getTask;
+                _taskController.getTask();
               })
         ],
       ),
@@ -194,16 +233,16 @@ class _HomePageState extends State<HomePage> {
     Get.bottomSheet(
       SingleChildScrollView(
           child: Container(
-        padding: EdgeInsets.only(top: 4.0),
-        width: SizeConfig.screenWidth,
-        height: (SizeConfig.orientation == Orientation.landscape)
-            ? (task.isCompleted == 1
-                ? SizeConfig.screenHeight * 0.6
-                : SizeConfig.screenHeight * 0.8)
-            : (task.isCompleted == 1
-                ? SizeConfig.screenHeight * 0.30
-                : SizeConfig.screenHeight * 0.39),
-        child: Column(
+                padding: EdgeInsets.only(top: 4.0),
+                width: SizeConfig.screenWidth,
+                 height: SizeConfig.screenHeight/2.5,//(SizeConfig.orientation == Orientation.landscape)
+            // ? (task.isCompleted == 1
+            //     ? SizeConfig.screenHeight * 0.6
+            //     : SizeConfig.screenHeight * 0.8)
+            // : (task.isCompleted == 1
+            //     ? SizeConfig.screenHeight * 0.50
+            //     : SizeConfig.screenHeight * 0.39),
+                child: Column(
           children: [
             Flexible(
               child: Container(
@@ -223,6 +262,7 @@ class _HomePageState extends State<HomePage> {
                 : _buildBottomSheet(
                     label: 'Task Completed',
                     onTap: () {
+                      _taskController.markIsCompletedTask(task);
                       Get.back();
                     },
                     clr: primaryClr,
@@ -231,6 +271,7 @@ class _HomePageState extends State<HomePage> {
             _buildBottomSheet(
               label: 'Delete Task',
               onTap: () {
+                _taskController.deleteTask(task);
                 Get.back();
               },
               clr: primaryClr,
@@ -247,8 +288,8 @@ class _HomePageState extends State<HomePage> {
               height: 20,
             ),
           ],
-        ),
-      )),
+                ),
+              )),
     );
   }
 

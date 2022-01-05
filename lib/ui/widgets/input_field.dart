@@ -47,6 +47,7 @@ class InputField extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextFormField(
+                    controller: controller,
                     decoration: InputDecoration(
                       hintText: hint,
                       hintStyle: subTitleStyle,
