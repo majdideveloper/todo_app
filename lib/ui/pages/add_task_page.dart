@@ -185,6 +185,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     height: 10.0,
                   ),
                   MyButton(
+                    height: 45,
                     label: 'Create Task',
                     onTap: () {
                       _validateDate();
@@ -236,6 +237,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
   Column paletteColor() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Color',
@@ -265,8 +267,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
                         backgroundColor: index == 0
                             ? primaryClr
                             : index == 1
-                                ? pinkClr
-                                : orangeClr,
+                                ? orangeClr
+                                : pinkClr,
                         radius: 14.0,
                       ),
                     ),

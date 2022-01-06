@@ -25,7 +25,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => Get.back,
+          onPressed: Get.back,// or (){}
           icon: const Icon(
             Icons.arrow_back_ios,
           ),

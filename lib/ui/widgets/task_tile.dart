@@ -17,7 +17,7 @@ class TaskTile extends StatelessWidget {
           width: SizeConfig.orientation == Orientation.landscape
             ? SizeConfig.screenWidth / 2
             : SizeConfig.screenWidth,
-            margin: EdgeInsets.only(bottom: getProportionateScreenHeight(12.0)),
+            
       child: Container(
         padding: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
@@ -61,7 +61,7 @@ class TaskTile extends StatelessWidget {
                           style: GoogleFonts.lato(
                             textStyle: const TextStyle(
                               fontSize: 14,
-                              color: Colors.grey,
+                              color: Colors.white,
                             ),
                           )),
                     ],
@@ -74,7 +74,7 @@ class TaskTile extends StatelessWidget {
                         textStyle: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w900,
-                          color: Colors.grey,
+                          color: Colors.white,
                         ),
                       )),
                 ],
